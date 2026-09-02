@@ -39,7 +39,7 @@ export function CtaButton({
   }
 
   return (
-    <Link to={to ?? "/"} className={`${base} ${className}`}>
+    <Link to={(to ?? "/") as "/"} className={`${base} ${className}`}>
       {children}
       <Arrow />
     </Link>
