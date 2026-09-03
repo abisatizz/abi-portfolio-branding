@@ -13,8 +13,10 @@ export function Panel({
   id?: string;
 }) {
   return (
-    <section id={id} className="px-4 py-4 sm:px-6">
-      <div className={`panel mx-auto max-w-6xl px-6 py-12 sm:px-10 sm:py-16 ${className}`}>
+    <section id={id} className="px-4 py-4 sm:px-8 sm:py-5 lg:px-10">
+      <div
+        className={`panel mx-auto max-w-[1600px] px-6 py-12 sm:px-12 sm:py-16 lg:px-20 lg:py-24 ${className}`}
+      >
         {children}
       </div>
     </section>
