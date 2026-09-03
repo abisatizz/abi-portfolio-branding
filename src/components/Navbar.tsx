@@ -27,28 +27,24 @@ export function Navbar() {
           scrolled ? "px-5 py-2.5 shadow-[0_14px_35px_-30px_oklch(0.4_0.08_20)]" : "px-6 py-4"
         }`}
       >
-        <Link to="/" className="flex min-w-0 items-baseline gap-2">
-          <span className="display truncate text-xl sm:text-2xl">Abinaya</span>
-          <span className="hand shrink-0 text-xl text-coral">Sathish</span>
+        <Link to="/" aria-label="Abinaya Sathish — home" className="flex min-w-0 items-baseline gap-1.5">
+          <span className="truncate text-base font-bold uppercase tracking-[0.06em] sm:text-lg">
+            Abinaya
+          </span>
+          <span className="hand shrink-0 text-xl text-coral sm:text-2xl">Sathish</span>
         </Link>
 
-        <div className="hidden items-center gap-1 sm:flex">
+        <div className="hidden items-center gap-1 lg:flex">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              className="rounded-full px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-ink"
+              className="rounded-full px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink/70 transition-colors hover:text-ink"
               activeProps={{ className: "bg-card text-ink" }}
             >
               {l.label}
             </Link>
           ))}
-          <Link
-            to="/contact"
-            className="ml-2 rounded-full bg-ink px-5 py-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-cream transition-transform duration-300 hover:scale-[1.04]"
-          >
-            Let's Talk
-          </Link>
         </div>
 
         <button
