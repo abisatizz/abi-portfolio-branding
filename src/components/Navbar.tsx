@@ -52,7 +52,7 @@ export function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full bg-card sm:hidden"
+          className="flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full bg-card lg:hidden"
         >
           <span
             className={`h-0.5 w-4 bg-ink transition-transform ${open ? "translate-y-1 rotate-45" : ""}`}
@@ -64,8 +64,8 @@ export function Navbar() {
       </nav>
 
       {open && (
-        <div className="mx-auto mt-2 max-w-6xl rounded-3xl bg-cream p-4 sm:hidden">
-          {[...links, { to: "/contact", label: "Contact" } as const].map((l) => (
+        <div className="mx-auto mt-2 max-w-[1600px] rounded-3xl bg-cream px-6 py-4 lg:hidden">
+          {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
