@@ -30,60 +30,77 @@ function Home() {
   return (
     <>
       {/* 01 — HERO */}
-      <Panel className="overflow-hidden">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr]">
+      <Panel>
+        <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_1fr] lg:gap-16">
           <div className="min-w-0">
             <Reveal>
-              <p className="eyebrow text-coral">01 — Brand Strategist</p>
-              <h1 className="display mt-4 text-[2.6rem] leading-[0.95] sm:text-6xl lg:text-[4.4rem]">
-                Why do people
+              <h1 className="display text-[2.9rem] leading-[0.9] sm:text-[4.2rem] lg:text-[5.6rem]">
+                Why do
                 <br />
-                choose <Circled>one brand</Circled>
+                people
                 <br />
-                over another?
+                choose one
+                <br />
+                <Circled>brand</Circled> over
+                <br />
+                another?
               </h1>
             </Reveal>
-            <Reveal delay={120}>
-              <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground">
-                I'm Abinaya — I answer that question for a living. Positioning, messaging and
-                identity direction for founders who'd rather be chosen than compared.
+
+            <Reveal delay={120} className="mt-8 flex items-start gap-3 lg:hidden">
+              <HandArrow className="mt-2 h-7 w-14" />
+              <p className="hand max-w-xs text-xl -rotate-2">
+                That's the part I like <span className="text-coral">figuring out</span> &amp; I have
+                a few theories..
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <CtaButton to="/work">See the work</CtaButton>
+            </Reveal>
+
+            <Reveal delay={140}>
+              <p className="mt-8 max-w-md text-base leading-relaxed">
+                I'm interested in the things people notice, the things they don't, and the{" "}
+                <span className="text-coral">reasons they choose one brand over another.</span>
+              </p>
+              <p className="eyebrow mt-6 max-w-md text-muted-foreground">
+                Brand Strategy <span className="text-coral-soft">•</span> Creative Thinking{" "}
+                <span className="text-coral-soft">•</span> Content{" "}
+                <span className="text-coral-soft">•</span> Digital Experiences
+              </p>
+              <div className="mt-9 flex flex-wrap items-center gap-6">
+                <CtaButton to="/work">View my work</CtaButton>
                 <Link
                   to="/my-brain"
                   className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] underline decoration-coral decoration-2 underline-offset-8"
                 >
-                  Read my thinking
+                  Inside my brain
                 </Link>
               </div>
             </Reveal>
-            <Reveal delay={220} className="mt-10 flex items-center gap-3">
-              <HandArrow className="h-8 w-16 rotate-[8deg]" />
-              <span className="hand text-xl text-muted-foreground">
-                spoiler: it's rarely the logo
-              </span>
-            </Reveal>
           </div>
 
-          <Reveal delay={100} className="relative">
-            <div className="soft-card relative overflow-hidden rounded-[2rem] p-3">
+          <div className="relative">
+            <Reveal
+              delay={100}
+              className="hidden lg:absolute lg:-left-16 lg:top-[38%] lg:z-10 lg:block lg:w-56"
+            >
+              <div className="flex items-start gap-2">
+                <HandArrow className="mt-3 h-7 w-14 shrink-0" />
+                <p className="hand -rotate-3 text-xl leading-snug">
+                  That's the part I like <span className="text-coral">figuring out</span> &amp; I
+                  have a few theories..
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={80} className="soft-card overflow-hidden rounded-[1.75rem] p-3">
               <img
                 src={portrait.url}
                 alt="Illustration of Abinaya at her desk with a laptop, boba tea and a stack of brand strategy books"
                 width={1132}
                 height={1680}
-                className="w-full rounded-[1.5rem] object-cover"
+                className="w-full rounded-[1.25rem] object-cover"
               />
-            </div>
-            <img
-              src={stickers.latte}
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-              className="float-soft pointer-events-none absolute -bottom-6 -left-6 w-24 sm:w-32"
-            />
-          </Reveal>
+            </Reveal>
+          </div>
         </div>
       </Panel>
 

@@ -3,8 +3,8 @@ import { Heart } from "./Decor";
 
 export function Footer() {
   return (
-    <footer className="px-4 pb-6 sm:px-6">
-      <div className="panel mx-auto max-w-6xl px-6 py-10 sm:px-10">
+    <footer className="px-4 pb-8 sm:px-8 lg:px-10">
+      <div className="panel mx-auto max-w-[1600px] px-6 py-10 sm:px-12 lg:px-20">
         <div className="grid gap-8 sm:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
             <p className="hand text-2xl text-coral">Let's build a brand people choose.</p>
