@@ -55,7 +55,7 @@ function CaseNotFound() {
 function CaseStudy() {
   const { project, detail } = Route.useLoaderData();
   const index = projects.findIndex((p) => p.slug === project.slug);
-  const next = projects[(index + 1) % projects.length];
+  const next = projects[(index + 1) % projects.length] ?? project;
 
   const boxes =
     detail?.boxes ??
