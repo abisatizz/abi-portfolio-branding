@@ -3,18 +3,21 @@ import { CtaButton } from "@/components/CtaButton";
 import { Squiggle } from "@/components/Decor";
 import { Panel } from "@/components/Panel";
 import { Reveal } from "@/components/Reveal";
-import { projects } from "@/data/site";
+import { caseDetails, projects } from "@/data/site";
 
 export const Route = createFileRoute("/work/$slug")({
   loader: ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
-    return { project };
+    return { project, detail: caseDetails[project.slug] ?? null };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Case study not found — Abinaya Sathish" }, { name: "robots", content: "noindex" }],
+        meta: [
+          { title: "Case study not found — Abinaya Sathish" },
+          { name: "robots", content: "noindex" },
+        ],
       };
     }
     const { project } = loaderData;
@@ -25,6 +28,8 @@ export const Route = createFileRoute("/work/$slug")({
         { name: "description", content: project.tagline },
         { property: "og:title", content: title },
         { property: "og:description", content: project.tagline },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
     };
   },
@@ -48,59 +53,94 @@ function CaseNotFound() {
 }
 
 function CaseStudy() {
-  const { project } = Route.useLoaderData();
+  const { project, detail } = Route.useLoaderData();
+  const index = projects.findIndex((p) => p.slug === project.slug);
+  const next = projects[(index + 1) % projects.length] ?? project;
+
+  const boxes =
+    detail?.boxes ??
+    [
+      { label: "The problem", body: project.problem },
+      { label: "The outcome", body: project.outcome },
+    ];
 
   return (
     <>
+      {/* The box: one bordered card holding the whole case study */}
       <Panel>
-        <Reveal>
-          <Link
-            to="/work"
-            className="eyebrow text-muted-foreground transition-colors hover:text-ink"
-          >
-            ← All work
-          </Link>
-          <p className="eyebrow mt-6 text-coral">
-            {project.category} · {project.year}
+        <Reveal className="rounded-[1.75rem] border border-border bg-card/60 p-6 sm:p-10 lg:p-14">
+          {/* box header */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <Link
+              to="/work"
+              className="eyebrow text-muted-foreground transition-colors hover:text-ink"
+            >
+              ← Case study
+            </Link>
+            <Link
+              to="/work/$slug"
+              params={{ slug: next.slug }}
+              className="eyebrow rounded-full border border-border px-4 py-2 transition-colors hover:bg-cream"
+            >
+              Next →
+            </Link>
+          </div>
+
+          <p className="eyebrow mt-8 text-coral">
+            {project.name} · {project.category} · {project.year}
           </p>
-          <h1 className="display mt-3 text-4xl sm:text-6xl">{project.name}</h1>
-          <Squiggle className="mt-3" />
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            {project.tagline}
+
+          <h1 className="hand mt-4 max-w-3xl text-4xl leading-tight sm:text-6xl">
+            {detail?.question ?? project.tagline}
+          </h1>
+
+          <ul className="mt-7 flex flex-wrap gap-2">
+            {(detail?.tags ?? [project.category]).map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border border-border px-4 py-1.5 text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+
+          {/* the grid of boxes inside the box */}
+          <div className="mt-10 grid border-t border-border sm:grid-cols-2">
+            {boxes.map((b, i) => (
+              <Reveal
+                key={b.label}
+                delay={i * 60}
+                className={`border-b border-border p-6 sm:p-8 ${
+                  i % 2 === 0 ? "sm:border-r" : ""
+                }`}
+              >
+                <span className="block text-xs text-coral">—</span>
+                <h2 className="mt-3 text-[0.8rem] font-bold uppercase tracking-[0.14em]">
+                  {b.label}
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{b.body}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <p className="hand mt-8 text-2xl text-coral">
+            {detail?.footnote ?? "The thinking is the deliverable."}
           </p>
         </Reveal>
-        <Reveal delay={120} className="mt-10 overflow-hidden rounded-[1.5rem] bg-card p-4">
+      </Panel>
+
+      {/* Visual */}
+      <Panel>
+        <Reveal className="overflow-hidden rounded-[1.5rem] bg-card p-4">
           <img
             src={project.image}
             alt={`${project.name} brand work`}
+            loading="lazy"
             width={1024}
             height={768}
             className="w-full rounded-[1rem] object-cover"
           />
-        </Reveal>
-      </Panel>
-
-      <Panel>
-        <div className="grid gap-10 lg:grid-cols-2">
-          <Reveal>
-            <p className="eyebrow text-coral">The problem</p>
-            <p className="mt-4 text-lg leading-relaxed">{project.problem}</p>
-          </Reveal>
-          <Reveal delay={100}>
-            <p className="eyebrow text-coral">The approach</p>
-            <ul className="mt-4 space-y-3">
-              {project.approach.map((step) => (
-                <li key={step} className="flex gap-3 text-sm leading-relaxed">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-coral" />
-                  {step}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-        <Reveal delay={160} className="mt-10 rounded-[1.25rem] bg-card p-8">
-          <p className="eyebrow text-coral">The outcome</p>
-          <p className="display mt-3 text-2xl leading-snug sm:text-3xl">{project.outcome}</p>
         </Reveal>
       </Panel>
 
